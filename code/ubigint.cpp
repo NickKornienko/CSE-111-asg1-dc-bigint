@@ -25,12 +25,11 @@ ubigint::ubigint (const string& that): uvalue(0) {
       if (not isdigit (digit)) {
          throw invalid_argument ("ubigint::ubigint(" + that + ")");
       }
-      uvalue.push_back(digit);
-      // uvalue = uvalue * 10 + digit - '0';
+      uvalue.push_back(digit - '0');
    }
 }
 
-// ubigint ubigint::pad_zeros (const ubigint& that) const
+// void ubigint::pad_zeros (const ubigint& that) const
 // {
 //    if (this.size() == that.size())
 //    {
@@ -44,6 +43,7 @@ ubigint ubigint::operator+ (const ubigint& that) const {
    vector<uint8_t> vect;
 
    vect.insert(vect.end(), that.uvalue.begin(), that.uvalue.end());
+   vect.insert(vect.end(), this->uvalue.begin(), this->uvalue.end());
 
    ubigint bigint;
    bigint.uvalue = vect;
