@@ -21,12 +21,12 @@ ubigint::ubigint (unsigned long that): uvalue (that) {
 }
 
 ubigint::ubigint (const string& that): uvalue(0) {
-   DEBUGF ('~', "that = \"" << that << "\"");
    for (char digit: that) {
       if (not isdigit (digit)) {
          throw invalid_argument ("ubigint::ubigint(" + that + ")");
       }
-      uvalue = uvalue * 10 + digit - '0';
+      uvalue.push_back(digit);
+      // uvalue = uvalue * 10 + digit - '0';
    }
 }
 
@@ -42,9 +42,8 @@ ubigint::ubigint (const string& that): uvalue(0) {
 
 ubigint ubigint::operator+ (const ubigint& that) const {
    vector<uint8_t> vect;
-   vect.push_back(5);
-   // vect.push_back(that.uvalue[0]);
-   // vect.insert(vect.end(), that.uvalue.begin(), that.uvalue.end());
+
+   vect.insert(vect.end(), that.uvalue.begin(), that.uvalue.end());
 
    ubigint bigint;
    bigint.uvalue = vect;
