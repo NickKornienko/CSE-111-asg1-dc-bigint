@@ -5,6 +5,7 @@
 #include <exception>
 #include <stack>
 #include <stdexcept>
+#include <iostream>
 using namespace std;
 
 #include "debug.h"
@@ -21,30 +22,36 @@ ubigint::ubigint (unsigned long that): uvalue (that) {
 
 ubigint::ubigint (const string& that): uvalue(0) {
    DEBUGF ('~', "that = \"" << that << "\"");
-/***FIXME***
    for (char digit: that) {
       if (not isdigit (digit)) {
          throw invalid_argument ("ubigint::ubigint(" + that + ")");
       }
       uvalue = uvalue * 10 + digit - '0';
    }
-***/
 }
 
+// ubigint ubigint::pad_zeros (const ubigint& that) const
+// {
+//    if (this.size() == that.size())
+//    {
+
+//    }
+//    int diff = abs(this.size() - that.size());
+//    if (this.size()  that.size())
+// }
+
 ubigint ubigint::operator+ (const ubigint& that) const {
-   DEBUGF ('u', *this << "+" << that);
    vector<uint8_t> vect;
    vect.push_back(5);
+   // vect.push_back(that.uvalue[0]);
+   // vect.insert(vect.end(), that.uvalue.begin(), that.uvalue.end());
 
    ubigint bigint;
    bigint.uvalue = vect;
-   
+
    ubigint result;
    result.uvalue = bigint.uvalue;
-/***FIXME***
-   ubigint result (uvalue + that.uvalue);
-   DEBUGF ('u', result);
-***/
+
    return result;
 }
 
