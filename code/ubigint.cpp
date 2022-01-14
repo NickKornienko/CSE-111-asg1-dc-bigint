@@ -1,4 +1,4 @@
-// $Id: ubigint.cpp,v 1.3 2022-01-11 17:47:47-08 - - $
+// $Id: ubigint.cpp,v 1.5 2022-01-11 16:36:15-08 - - $
 
 #include <cctype>
 #include <cstdlib>
@@ -10,42 +10,73 @@ using namespace std;
 #include "debug.h"
 #include "ubigint.h"
 
+ostream& operator<< (ostream& out, const ubigint::ubigvalue_t& uvalue) {
+   for (const auto& digit: uvalue) out << static_cast<int> (digit);
+   return out;
+}
+
 ubigint::ubigint (unsigned long that): uvalue (that) {
    DEBUGF ('~', this << " -> " << uvalue)
 }
 
 ubigint::ubigint (const string& that): uvalue(0) {
    DEBUGF ('~', "that = \"" << that << "\"");
+/***FIXME***
    for (char digit: that) {
       if (not isdigit (digit)) {
          throw invalid_argument ("ubigint::ubigint(" + that + ")");
       }
       uvalue = uvalue * 10 + digit - '0';
    }
+***/
 }
 
 ubigint ubigint::operator+ (const ubigint& that) const {
    DEBUGF ('u', *this << "+" << that);
+   vector<uint8_t> vect;
+   vect.push_back(5);
+
+   ubigint bigint;
+   bigint.uvalue = vect;
+   
+   ubigint result;
+   result.uvalue = bigint.uvalue;
+/***FIXME***
    ubigint result (uvalue + that.uvalue);
    DEBUGF ('u', result);
+***/
    return result;
 }
 
 ubigint ubigint::operator- (const ubigint& that) const {
+   DEBUGF ('u', *this << "+" << that);
+   ubigint result;
+/***FIXME***
    if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
    return ubigint (uvalue - that.uvalue);
+***/
+   return result;
 }
 
 ubigint ubigint::operator* (const ubigint& that) const {
+   DEBUGF ('u', *this << "+" << that);
+   ubigint result;
+/***FIXME***
    return ubigint (uvalue * that.uvalue);
+***/
+   return result;
 }
 
 void ubigint::multiply_by_2() {
+/***FIXME***
    uvalue *= 2;
+***/
 }
 
 void ubigint::divide_by_2() {
+/***FIXME***
    uvalue /= 2;
+***/
 }
 
 
