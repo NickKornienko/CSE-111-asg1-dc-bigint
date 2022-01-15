@@ -17,7 +17,8 @@ class ubigint {
    private:
       using ubigvalue_t = vector<uint8_t>;
       ubigvalue_t uvalue {};
-      void pad_zeros(vector<uint8_t>*, vector<uint8_t>*) const;
+      void pad_zeros (vector<uint8_t>*, vector<uint8_t>*) const;
+      void trim_zeros (vector<uint8_t>*) const;
    public:
       void multiply_by_2();
       void divide_by_2();

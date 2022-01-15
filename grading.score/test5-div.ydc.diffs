@@ -1,0 +1,5 @@
+1c1,2
+< ./mk.tests: line 47: ./ydc: No such file or directory
+---
+> 12500000750001250000075
+> 1111111177

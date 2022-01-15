@@ -29,25 +29,37 @@ ubigint::ubigint (const string& that): uvalue(0) {
    }
 }
 
-void ubigint::pad_zeros (vector<uint8_t>* vec1, vector<uint8_t>* vec2) const
+void ubigint::pad_zeros (vector<uint8_t>* vec1,
+ vector<uint8_t>* vec2) const
 {
     if (vec1->size() == vec2->size())
        return;
     else 
     {
-       int diff = abs(static_cast<int>(vec1->size()) - static_cast<int>(vec2->size()));
+       int diff = abs(static_cast<int>(vec1->size()) -
+        static_cast<int>(vec2->size()));
 
        if (vec1->size() > vec2->size())
        {
-          for(int i = 0; i < diff; i++)
-             vec2->push_back(0);
+         for(int i = 0; i < diff; i++)
+            vec2->push_back(0);
+         reverse(vec2->begin(),vec2->end());
        }
        else
        {
          for(int i = 0; i < diff; i++)
-             vec1->push_back(0);
+            vec1->push_back(0);
+         reverse(vec1->begin(),vec1->end());
        }
     }
+}
+
+void ubigint::trim_zeros (vector<uint8_t>* vec) const
+{
+   while (vec->size() > 0 && vec->back() == 0)
+   {
+      vec->pop_back();
+   }
 }
 
 ubigint ubigint::operator+ (const ubigint& that) const {
@@ -55,23 +67,23 @@ ubigint ubigint::operator+ (const ubigint& that) const {
    vector<uint8_t> vecL = this->uvalue;
    vector<uint8_t> vecR = that.uvalue;
    vector<uint8_t> result;
-   uint8_t carry = 0;
-
    pad_zeros(&vecL, &vecR);
-   
-   for(int i = 0; i < static_cast<int>(vecL.size()); i++)
-   {
-      uint8_t sum = (vecL[i] + vecR[i] + carry)%10;
-      carry = (vecL[i] + vecR[i] + carry)/10; 
-      cout << carry << "\n";
-      result.push_back(sum);
-   }
 
-   if(carry > 0)
+   reverse(vecL.begin(),vecL.end());
+   reverse(vecR.begin(),vecR.end());
+
+   result.push_back(0);
+   for (size_t i = 0; i < vecL.size(); i++)
    {
+      uint8_t sum = result[i] + vecL[i] + vecR[i];
+      uint8_t digit = sum % 10;
+      uint8_t carry = sum / 10;
+
+      result[i] = digit;
       result.push_back(carry);
    }
-
+   trim_zeros(&result);
+   reverse(result.begin(),result.end());
    ubigint retval;
    retval.uvalue = result;
 
