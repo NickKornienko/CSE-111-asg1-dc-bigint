@@ -50,7 +50,6 @@ void ubigint::pad_zeros(vector<uint8_t> *vec1,
       {
          vec2->push_back(0);
       }
-      // reverse(vec2->begin(), vec2->end());
    }
    else
    {
@@ -58,7 +57,6 @@ void ubigint::pad_zeros(vector<uint8_t> *vec1,
       {
          vec1->push_back(0);
       }
-      // reverse(vec1->begin(), vec1->end());
    }
 }
 
@@ -80,17 +78,6 @@ ubigint ubigint::operator+(const ubigint &that) const
    reverse(vecR.begin(), vecR.end());
 
    pad_zeros(&vecL, &vecR);
-   
-   // for (size_t i = 0; i < vecL.size(); i++)
-   // {
-   //    cout << static_cast<int>(vecL[i]);
-   // }
-   // cout << "\n";
-   // for (size_t i = 0; i < vecR.size(); i++)
-   // {
-   //    cout << static_cast<int>(vecR[i]);
-   // }
-   // cout << "\n";
 
    result.push_back(0);
    for (size_t i = 0; i < vecL.size(); i++)
