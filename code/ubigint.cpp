@@ -29,29 +29,53 @@ ubigint::ubigint (const string& that): uvalue(0) {
    }
 }
 
-// void ubigint::pad_zeros (const ubigint& that) const
-// {
-//    if (this.size() == that.size())
-//    {
+void ubigint::pad_zeros (vector<uint8_t>* vec1, vector<uint8_t>* vec2) const
+{
+    if (vec1->size() == vec2->size())
+       return;
+    else 
+    {
+       int diff = abs(static_cast<int>(vec1->size()) - static_cast<int>(vec2->size()));
 
-//    }
-//    int diff = abs(this.size() - that.size());
-//    if (this.size()  that.size())
-// }
+       if (vec1->size() > vec2->size())
+       {
+          for(int i = 0; i < diff; i++)
+             vec2->push_back(0);
+       }
+       else
+       {
+         for(int i = 0; i < diff; i++)
+             vec1->push_back(0);
+       }
+    }
+}
 
 ubigint ubigint::operator+ (const ubigint& that) const {
-   vector<uint8_t> vect;
+  
+   vector<uint8_t> vecL = this->uvalue;
+   vector<uint8_t> vecR = that.uvalue;
+   vector<uint8_t> result;
+   uint8_t carry = 0;
 
-   vect.insert(vect.end(), that.uvalue.begin(), that.uvalue.end());
-   vect.insert(vect.end(), this->uvalue.begin(), this->uvalue.end());
+   pad_zeros(&vecL, &vecR);
+   
+   for(int i = 0; i < static_cast<int>(vecL.size()); i++)
+   {
+      uint8_t sum = (vecL[i] + vecR[i] + carry)%10;
+      carry = (vecL[i] + vecR[i] + carry)/10; 
+      cout << carry << "\n";
+      result.push_back(sum);
+   }
 
-   ubigint bigint;
-   bigint.uvalue = vect;
+   if(carry > 0)
+   {
+      result.push_back(carry);
+   }
 
-   ubigint result;
-   result.uvalue = bigint.uvalue;
+   ubigint retval;
+   retval.uvalue = result;
 
-   return result;
+   return retval;
 }
 
 ubigint ubigint::operator- (const ubigint& that) const {
