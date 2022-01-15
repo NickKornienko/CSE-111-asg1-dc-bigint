@@ -70,7 +70,6 @@ void ubigint::trim_zeros(vector<uint8_t> *vec) const
 
 ubigint ubigint::operator+(const ubigint &that) const
 {
-
    vector<uint8_t> vecL = this->uvalue;
    vector<uint8_t> vecR = that.uvalue;
    vector<uint8_t> result;
@@ -99,13 +98,41 @@ ubigint ubigint::operator+(const ubigint &that) const
 
 ubigint ubigint::operator-(const ubigint &that) const
 {
-   DEBUGF('u', *this << "+" << that);
-   ubigint result;
-   /***FIXME***
-   if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
-   return ubigint (uvalue - that.uvalue);
-***/
-   return result;
+   vector<uint8_t> vecL = this->uvalue;
+   vector<uint8_t> vecR = that.uvalue;
+   vector<uint8_t> result;
+   reverse(vecL.begin(), vecL.end());
+   reverse(vecR.begin(), vecR.end());
+
+   pad_zeros(&vecL, &vecR);
+
+   result.push_back(0);
+   bool borrow = false;
+   for (size_t i = 0; i < vecL.size(); i++)
+   {
+      int sum = ((borrow) ? -1 : 0) + vecL[i] - vecR[i];
+      int digit;
+      
+      if (sum < 0)
+      {
+         digit = sum + 10;
+         borrow = true;
+      }
+      else
+      {
+         digit = sum;
+         borrow = false;
+      }
+      
+      result[i] = digit;
+      result.push_back(0);
+   }
+   trim_zeros(&result);
+   reverse(result.begin(), result.end());
+   ubigint retval;
+   retval.uvalue = result;
+
+   return retval;
 }
 
 ubigint ubigint::operator*(const ubigint &that) const
