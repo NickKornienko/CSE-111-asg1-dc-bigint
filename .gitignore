@@ -1,2 +1,5 @@
 *.o
 ydc
+.vscode
+*.out
+*.diffs
