@@ -209,9 +209,14 @@ bool ubigint::less(const ubigint &that) const
    for(size_t i = 0; i < this->uvalue.size(); i++)
    {
       if(this->uvalue[i] < that.uvalue[i])
+      {
          return true;
+      }
+         
       if(this->uvalue[i] > that.uvalue[i])
-         return false;  
+      {
+         return false;
+      }     
    }
    return false;
 }
@@ -226,6 +231,10 @@ bool ubigint::operator<(const ubigint &that) const
    if (this->uvalue.size() < that.uvalue.size())
    {
       return true;
+   }
+   if (this->uvalue.size() > that.uvalue.size())
+   {
+      return false;
    }
    return this->less(that);
 }
