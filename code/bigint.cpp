@@ -43,7 +43,7 @@ bigint bigint::operator+(const bigint &that) const
    }
    else
    {
-      if (*this < that)
+      if (this->uvalue < that.uvalue)
       {
          result.uvalue = that.uvalue - this->uvalue;
          result.is_negative = that.is_negative;
