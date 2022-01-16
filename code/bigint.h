@@ -18,7 +18,6 @@ class bigint {
    private:
       ubigint uvalue {};
       bool is_negative {false};
-      bool compare(const bigint&) const;
    public:
 
       bigint() = default; // Needed or will be suppressed.

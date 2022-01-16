@@ -204,6 +204,18 @@ ubigint ubigint::operator%(const ubigint &that) const
    return udivide(*this, that).remainder;
 }
 
+bool ubigint::less(const ubigint &that) const
+{
+   for(size_t i = 0; i < this->uvalue.size(); i++)
+   {
+      if(this->uvalue[i] < that.uvalue[i])
+         return true;
+      if(this->uvalue[i] > that.uvalue[i])
+         return false;  
+   }
+   return false;
+}
+
 bool ubigint::operator==(const ubigint &that) const
 {
    return uvalue == that.uvalue;
@@ -211,7 +223,11 @@ bool ubigint::operator==(const ubigint &that) const
 
 bool ubigint::operator<(const ubigint &that) const
 {
-   return uvalue < that.uvalue;
+   if (this->uvalue.size() < that.uvalue.size())
+   {
+      return true;
+   }
+   return this->less(that);
 }
 
 void ubigint::print() const

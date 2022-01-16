@@ -43,15 +43,15 @@ bigint bigint::operator+(const bigint &that) const
    }
    else
    {
-      if(this < that)
+      if (*this < that)
       {
-         result.uvalue = uvalue - that.uvalue;
-         result.is_negative = this->is_negative;
+         result.uvalue = that.uvalue - this->uvalue;
+         result.is_negative = that.is_negative;
       }
       else
       {
-         result.uvalue = that.uvalue - uvalue;
-         result.is_negative = that.is_negative;
+         result.uvalue = this->uvalue - that.uvalue;
+         result.is_negative = this->is_negative;
       } 
    }
    return result;
@@ -59,7 +59,25 @@ bigint bigint::operator+(const bigint &that) const
 
 bigint bigint::operator-(const bigint &that) const
 {
-   ubigint result{uvalue - that.uvalue};
+   bigint result;
+   if (this->is_negative != that.is_negative)
+   {
+      result.uvalue = this->uvalue + that.uvalue;
+      result.is_negative = this->is_negative;
+   }
+   else
+   {
+      if (*this < that)
+      {
+         result.uvalue = that.uvalue - this->uvalue;
+         result.is_negative = that.is_negative;
+      }
+      else
+      {
+         result.uvalue = this->uvalue - that.uvalue;
+         result.is_negative = this->is_negative;
+      } 
+   }
    return result;
 }
 
@@ -81,19 +99,6 @@ bigint bigint::operator%(const bigint &that) const
    return result;
 }
 
-bool bigint::compare(const bigint &that) const
-{
-   for(int i = 0; i < this->uvalue.size(); i++)
-   {
-      if(this->uvalue[i] > that.uvalue[i])
-         return true;
-      if(this->uvalue[i] < that.uvalue[i])
-         return false;  
-   }
-
-   return true;
-}
-
 bool bigint::operator==(const bigint &that) const
 {
    return is_negative == that.is_negative and uvalue == that.uvalue;
@@ -106,22 +111,9 @@ bool bigint::operator<(const bigint &that) const
    
    if(is_negative)
    {
-      if(this->uvalue.uvalue.size() > that.uvalue.uvalue.size())
-         return true;
-     
-      if(this->uvalue.size() < that.uvalue.size())
-         return false;
-
-      return bigint::compare(that); 
+      return this->uvalue > that.uvalue;
    }
-
-   if(this->uvalue.size() > that.uvalue.size())
-      return false;
-     
-   if(this->uvalue.size() < that.uvalue.size())
-      return true; 
-
-   return !(bigint::compare(that); 
+   return this->uvalue < that.uvalue;
 }
 
 void bigint::print() const
