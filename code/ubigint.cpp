@@ -112,7 +112,7 @@ ubigint ubigint::operator-(const ubigint &that) const
    {
       int sum = ((borrow) ? -1 : 0) + vecL[i] - vecR[i];
       int digit;
-      
+
       if (sum < 0)
       {
          digit = sum + 10;
@@ -123,7 +123,7 @@ ubigint ubigint::operator-(const ubigint &that) const
          digit = sum;
          borrow = false;
       }
-      
+
       result[i] = digit;
       result.push_back(0);
    }
@@ -206,17 +206,17 @@ ubigint ubigint::operator%(const ubigint &that) const
 
 bool ubigint::less(const ubigint &that) const
 {
-   for(size_t i = 0; i < this->uvalue.size(); i++)
+   for (size_t i = 0; i < this->uvalue.size(); i++)
    {
-      if(this->uvalue[i] < that.uvalue[i])
+      if (this->uvalue[i] < that.uvalue[i])
       {
          return true;
       }
-         
-      if(this->uvalue[i] > that.uvalue[i])
+
+      if (this->uvalue[i] > that.uvalue[i])
       {
          return false;
-      }     
+      }
    }
    return false;
 }
@@ -242,7 +242,14 @@ bool ubigint::operator<(const ubigint &that) const
 void ubigint::print() const
 {
    DEBUGF('p', this << " -> " << *this);
-   cout << uvalue;
+   for (size_t i = 0; i < uvalue.size(); i++)
+   {
+      cout << static_cast<int>(uvalue[i]);
+      if (i != 0 && i % 68 == 0)
+      {
+         cout << "\\" << "\n";
+      }
+   }
 }
 
 ostream &operator<<(ostream &out, const ubigint &that)
