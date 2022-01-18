@@ -3,5 +3,4 @@ ydc
 .vscode
 *.out
 *.diffs
-*.ydc
 *.status
