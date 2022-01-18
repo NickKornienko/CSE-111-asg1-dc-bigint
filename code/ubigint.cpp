@@ -176,7 +176,7 @@ void ubigint::multiply_by_2()
 {
    ubigint two;
    two.uvalue.push_back(2);
-   *this * two;
+   *this = *this * two;
 }
 
 void ubigint::divide_by_2()
@@ -208,20 +208,23 @@ quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
 {
    // NOTE: udivide is a non-member function.
    ubigint divisor{divisor_};
-   ubigint zero{0};
+   ubigint zero;
+   zero.uvalue.push_back(0);
    if (divisor == zero)
       throw domain_error("udivide by zero");
-   ubigint power_of_2{1};
-   ubigint quotient{0};
-   ubigint remainder{dividend}; // left operand, dividend
-
+   ubigint power_of_2;
+   power_of_2.uvalue.push_back(1);
+   ubigint quotient;
+   quotient.uvalue.push_back(0);
+   ubigint remainder; // left operand, dividend
+   remainder.uvalue = dividend.uvalue;
    while (divisor < remainder)
    {
       divisor.multiply_by_2();
+      // cout << "beforemul" << static_cast<int>(power_of_2.uvalue[0]) << "\n";
       power_of_2.multiply_by_2();
+      // cout << "beforemul" << static_cast<int>(power_of_2.uvalue[0]) << "\n";
    }
-   cout << "test";
-   return {.quotient = quotient, .remainder = remainder};
    while (power_of_2 > zero)
    {
       if (divisor <= remainder)
@@ -229,7 +232,9 @@ quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
          remainder = remainder - divisor;
          quotient = quotient + power_of_2;
       }
+      // cout << "beforediv" << static_cast<int>(divisor.uvalue[0]) << "\n";
       divisor.divide_by_2();
+      // cout << "beforediv" << static_cast<int>(divisor.uvalue[0]) << "\n";
       power_of_2.divide_by_2();
    }
    DEBUGF('/', "quotient = " << quotient);
