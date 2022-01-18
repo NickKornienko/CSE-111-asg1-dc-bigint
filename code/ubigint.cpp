@@ -265,9 +265,39 @@ bool ubigint::less(const ubigint &that) const
    return false;
 }
 
+bool ubigint::equal(const ubigint &that) const
+{
+   for (size_t i = 0; i < this->uvalue.size(); i++)
+   {
+      if (this->uvalue[i] != that.uvalue[i])
+      {
+         return false;
+      }
+   }
+   return true;
+}
+
 bool ubigint::operator==(const ubigint &that) const
 {
-   return uvalue == that.uvalue;
+   if (this->uvalue.size() != that.uvalue.size())
+   {
+      return false;
+   }
+   return this->equal(that);
+}
+
+
+bool ubigint::operator==(const ubigint &that) const
+{
+   if (this->uvalue.size() != that.uvalue.size())
+   {
+      return false;
+   }
+   if (this->uvalue.size() > that.uvalue.size())
+   {
+      return false;
+   }
+   
 }
 
 bool ubigint::operator<(const ubigint &that) const
