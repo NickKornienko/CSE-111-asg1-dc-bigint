@@ -1,1 +1,6 @@
-gmake: Nothing to be done for 'all'.
+checksource bigint.cpp
+checksource: TOTAL COMPLAINTS: 0
+cpplint.py.perl bigint.cpp
+Done processing bigint.cpp
+g++ -std=gnu++2a -fdiagnostics-color=never -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -g -O0 -std=gnu++2a -fdiagnostics-color=never -c bigint.cpp
+g++ -std=gnu++2a -fdiagnostics-color=never -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -g -O0 -std=gnu++2a -fdiagnostics-color=never -o ydc ubigint.o bigint.o libfns.o scanner.o debug.o util.o main.o

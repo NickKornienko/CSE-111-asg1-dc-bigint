@@ -141,32 +141,32 @@ ubigint ubigint::operator-(const ubigint &that) const
 ubigint ubigint::operator*(const ubigint &that) const
 {
    DEBUGF('u', *this << "+" << that);
-   
    vector<uint8_t> vecL = this->uvalue;
    vector<uint8_t> vecR = that.uvalue;
    vector<uint8_t> result;
    reverse(vecL.begin(), vecL.end());
    reverse(vecR.begin(), vecR.end());
 
-   result.resize(static_cast<int>(vecL.size()) + static_cast<int>(vecR.size()));
+   result.resize(static_cast<int>(vecL.size()) +
+                 static_cast<int>(vecR.size()));
 
    for (size_t i = 0; i < vecL.size(); i++)
    {
       int carry = 0;
-      
+
       for (size_t j = 0; j < vecR.size(); j++)
       {
-         int digit = result[i+j] + vecL[i] * vecR[j] + carry;
-         result[i+j] = digit % 10;
-         carry = digit/10;    
+         int digit = result[i + j] + vecL[i] * vecR[j] + carry;
+         result[i + j] = digit % 10;
+         carry = digit / 10;
       }
-     
+
       result[i + static_cast<int>(vecR.size())] = carry;
    }
 
    trim_zeros(&result);
    reverse(result.begin(), result.end());
- 
+
    ubigint retval;
    retval.uvalue = result;
    return retval;
@@ -174,16 +174,29 @@ ubigint ubigint::operator*(const ubigint &that) const
 
 void ubigint::multiply_by_2()
 {
-   /***FIXME***
-   uvalue *= 2;
-***/
+   ubigint two;
+   two.uvalue.push_back(2);
+   *this * two;
 }
 
 void ubigint::divide_by_2()
 {
-   /***FIXME***
-   uvalue /= 2;
-***/
+   ubigint two;
+   two.uvalue.push_back(2);
+   reverse(this->uvalue.begin(), this->uvalue.end());
+
+   for (size_t i = 0; i < this->uvalue.size(); i++)
+   {
+      this->uvalue[i] = this->uvalue[i] / 2;
+      if ((i != this->uvalue.size()) &&
+          ((this->uvalue[i + 1] % 2) != 0))
+      {
+         this->uvalue[i] += 5;
+      }
+   }
+
+   trim_zeros(&this->uvalue);
+   reverse(this->uvalue.begin(), this->uvalue.end());
 }
 
 struct quo_rem
@@ -201,11 +214,14 @@ quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
    ubigint power_of_2{1};
    ubigint quotient{0};
    ubigint remainder{dividend}; // left operand, dividend
+
    while (divisor < remainder)
    {
       divisor.multiply_by_2();
       power_of_2.multiply_by_2();
    }
+   cout << "test";
+   return {.quotient = quotient, .remainder = remainder};
    while (power_of_2 > zero)
    {
       if (divisor <= remainder)
@@ -274,7 +290,8 @@ void ubigint::print() const
       cout << static_cast<int>(uvalue[i]);
       if (i != 0 && i % 68 == 0)
       {
-         cout << "\\" << "\n";
+         cout << "\\"
+              << "\n";
       }
    }
 }
