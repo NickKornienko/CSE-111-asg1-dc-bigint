@@ -8,7 +8,7 @@ using namespace std;
 
 #include "bigint.h"
 
-bigint::bigint(long that) : uvalue(that), is_negative(that < 0)
+bigint::bigint(long that) : uvalue(ubigint(that)), is_negative(that < 0)
 {
 }
 

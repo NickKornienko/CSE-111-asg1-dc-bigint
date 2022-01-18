@@ -18,7 +18,7 @@ ostream &operator<<(ostream &out, const ubigint::ubigvalue_t &uvalue)
    return out;
 }
 
-ubigint::ubigint(unsigned long that) : uvalue(that)
+ubigint::ubigint(unsigned long that) : uvalue((ubigint(to_string(that))).uvalue)
 {
 }
 
@@ -207,17 +207,13 @@ struct quo_rem
 quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
 {
    // NOTE: udivide is a non-member function.
-   ubigint divisor{divisor_};
-   ubigint zero;
-   zero.uvalue.push_back(0);
-   if (divisor == zero)
-      throw domain_error("udivide by zero");
-   ubigint power_of_2;
-   power_of_2.uvalue.push_back(1);
-   ubigint quotient;
-   quotient.uvalue.push_back(0);
-   ubigint remainder; // left operand, dividend
-   remainder.uvalue = dividend.uvalue;
+   ubigint divisor {divisor_};
+   ubigint zero {0};
+   if (divisor == zero) throw domain_error ("udivide by zero");
+   ubigint power_of_2 {1};
+   ubigint quotient {0};
+   ubigint remainder {dividend}; // left operand, dividend   
+
    while (divisor < remainder)
    {
       divisor.multiply_by_2();

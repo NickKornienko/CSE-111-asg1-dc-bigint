@@ -16,6 +16,7 @@ using namespace std;
 class ubigint {
    private:
       using ubigvalue_t = vector<uint8_t>;
+      ubigvalue_t uvalue {};
       
       void pad_zeros (vector<uint8_t>*, vector<uint8_t>*) const;
       void trim_zeros (vector<uint8_t>*) const;
@@ -23,7 +24,6 @@ class ubigint {
    public:
       void multiply_by_2();
       void divide_by_2();
-      ubigvalue_t uvalue {};
 
       ubigint() = default; // Need default ctor as well.
       ubigint (unsigned long);

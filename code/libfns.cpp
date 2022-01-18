@@ -1,4 +1,4 @@
-// $Id: libfns.cpp,v 1.1 2021-12-28 13:54:01-08 - - $
+// $Id: libfns.cpp,v 1.1 2021/12/28 21:54:01 - - $
 
 #include "libfns.h"
 
@@ -13,7 +13,13 @@ bigint pow (const bigint& base_arg, const bigint& exponent_arg) {
    static const bigint ZERO (0);
    static const bigint ONE (1);
    static const bigint TWO (2);
+  // static const bigint MAX (2147483648);
+ 
    DEBUGF ('^', "base = " << base << ", exponent = " << exponent);
+   //if(exponent > max)
+   //   cout << "here";
+   //exit(0);
+
    if (base == ZERO) return ZERO;
    bigint result = ONE;
    if (exponent < ZERO) {
