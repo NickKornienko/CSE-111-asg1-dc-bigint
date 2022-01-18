@@ -1,4 +1,2 @@
 checksource: README: No such file or directory
-checksource: line length > 72 characters
-ubigint.cpp: 5 errors: lines 21, 220, 222, 231, 233
-checksource: TOTAL COMPLAINTS: 6
+checksource: TOTAL COMPLAINTS: 1

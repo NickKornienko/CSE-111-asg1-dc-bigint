@@ -23,7 +23,6 @@ bigint pow (const bigint& base_arg, const bigint& exponent_arg) {
       cout << "Runtime error: exponent too large in raise\n";
       return result;
    }
-
    if (base == ZERO) return ZERO;
    if (exponent < ZERO) {
       base = ONE / base;
@@ -32,10 +31,10 @@ bigint pow (const bigint& base_arg, const bigint& exponent_arg) {
    while (exponent > ZERO) {
       if (exponent % TWO == ONE) {
          result = result * base;
-         exponent = exponent - 1;
+         exponent = exponent - ONE;
       }else {
          base = base * base;
-         exponent = exponent / 2;
+         exponent = exponent / TWO;
       }
    }
    DEBUGF ('^', "result = " << result);

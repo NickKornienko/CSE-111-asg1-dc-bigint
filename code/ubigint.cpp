@@ -18,7 +18,8 @@ ostream &operator<<(ostream &out, const ubigint::ubigvalue_t &uvalue)
    return out;
 }
 
-ubigint::ubigint(unsigned long that) : uvalue((ubigint(to_string(that))).uvalue)
+ubigint::ubigint(unsigned long that) : 
+uvalue((ubigint(to_string(that))).uvalue)
 {
 }
 
@@ -207,19 +208,18 @@ struct quo_rem
 quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
 {
    // NOTE: udivide is a non-member function.
-   ubigint divisor {divisor_};
-   ubigint zero {0};
-   if (divisor == zero) throw domain_error ("udivide by zero");
-   ubigint power_of_2 {1};
-   ubigint quotient {0};
-   ubigint remainder {dividend}; // left operand, dividend   
+   ubigint divisor{divisor_};
+   ubigint zero{0};
+   if (divisor == zero)
+      throw domain_error("udivide by zero");
+   ubigint power_of_2{1};
+   ubigint quotient{0};
+   ubigint remainder{dividend}; // left operand, dividend
 
    while (divisor < remainder)
    {
       divisor.multiply_by_2();
-      // cout << "beforemul" << static_cast<int>(power_of_2.uvalue[0]) << "\n";
       power_of_2.multiply_by_2();
-      // cout << "beforemul" << static_cast<int>(power_of_2.uvalue[0]) << "\n";
    }
    while (power_of_2 > zero)
    {
@@ -228,9 +228,7 @@ quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
          remainder = remainder - divisor;
          quotient = quotient + power_of_2;
       }
-      // cout << "beforediv" << static_cast<int>(divisor.uvalue[0]) << "\n";
       divisor.divide_by_2();
-      // cout << "beforediv" << static_cast<int>(divisor.uvalue[0]) << "\n";
       power_of_2.divide_by_2();
    }
    DEBUGF('/', "quotient = " << quotient);
@@ -284,20 +282,6 @@ bool ubigint::operator==(const ubigint &that) const
       return false;
    }
    return this->equal(that);
-}
-
-
-bool ubigint::operator==(const ubigint &that) const
-{
-   if (this->uvalue.size() != that.uvalue.size())
-   {
-      return false;
-   }
-   if (this->uvalue.size() > that.uvalue.size())
-   {
-      return false;
-   }
-   
 }
 
 bool ubigint::operator<(const ubigint &that) const
