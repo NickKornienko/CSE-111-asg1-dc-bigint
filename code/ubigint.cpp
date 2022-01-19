@@ -63,7 +63,7 @@ void ubigint::pad_zeros(vector<uint8_t> *vec1,
 
 void ubigint::trim_zeros(vector<uint8_t> *vec) const
 {
-   while (vec->size() > 0 && vec->back() == 0)
+   while (vec->size() > 1 && vec->back() == 0)
    {
       vec->pop_back();
    }

@@ -14,7 +14,7 @@ bigint pow (const bigint& base_arg, const bigint& exponent_arg) {
    static const bigint ONE (1);
    static const bigint TWO (2);
    static const bigint MAX (2147483647);
-   static const bigint MIN (-2147483647);
+   static const bigint MIN (-2147483648);
  
    DEBUGF ('^', "base = " << base << ", exponent = " << exponent);
    bigint result = ONE;
