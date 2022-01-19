@@ -1,4 +1,7 @@
 # $Id: Makefile,v 1.2 2022-01-05 02:54:32-08 - - $
+#James Garrett jaagarre
+#Nick Kornienko nkornien
+
 
 MKFILE      = Makefile
 DEPSFILE    = ${MKFILE}.deps

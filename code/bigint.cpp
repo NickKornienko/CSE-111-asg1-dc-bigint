@@ -1,4 +1,6 @@
 // $Id: bigint.cpp,v 1.2 2021-12-28 14:11:26-08 - - $
+//James Garrett jaagarre
+//Nick Kornienko nkornien
 
 #include <cstdlib>
 #include <exception>

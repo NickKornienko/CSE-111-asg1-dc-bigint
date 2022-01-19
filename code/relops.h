@@ -1,4 +1,7 @@
 // $Id: relops.h,v 1.4 2022-01-11 22:20:02-08 - - $
+//James Garrett jaagarre
+//Nick Kornienko nkornien
+
 
 //
 // Assuming that for any given type T, there are operators

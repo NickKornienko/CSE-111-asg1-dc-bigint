@@ -1,4 +1,7 @@
 // $Id: libfns.cpp,v 1.1 2021/12/28 21:54:01 - - $
+//James Garrett jaagarre
+//Nick Kornienko nkornien
+
 
 #include "libfns.h"
 

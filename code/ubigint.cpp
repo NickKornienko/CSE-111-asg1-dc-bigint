@@ -1,4 +1,6 @@
 // $Id: ubigint.cpp,v 1.5 2022-01-11 16:36:15-08 - - $
+//James Garrett jaagarre
+//Nick Kornienko nkornien
 
 #include <cctype>
 #include <cstdlib>
@@ -185,11 +187,10 @@ void ubigint::divide_by_2()
    ubigint two;
    two.uvalue.push_back(2);
    reverse(this->uvalue.begin(), this->uvalue.end());
-
    for (size_t i = 0; i < this->uvalue.size(); i++)
    {
       this->uvalue[i] = this->uvalue[i] / 2;
-      if ((i != this->uvalue.size()) &&
+      if ((i != this->uvalue.size()-1) &&
           ((this->uvalue[i + 1] % 2) != 0))
       {
          this->uvalue[i] += 5;
@@ -208,19 +209,19 @@ struct quo_rem
 quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
 {
    // NOTE: udivide is a non-member function.
-   ubigint divisor{divisor_};
-   ubigint zero{0};
+   ubigint divisor(divisor_);
+   ubigint zero(0);
    if (divisor == zero)
       throw domain_error("udivide by zero");
-   ubigint power_of_2{1};
-   ubigint quotient{0};
-   ubigint remainder{dividend}; // left operand, dividend
-
+   ubigint power_of_2(1);
+   ubigint quotient(0);
+   ubigint remainder(dividend); // left operand, dividend
    while (divisor < remainder)
    {
       divisor.multiply_by_2();
       power_of_2.multiply_by_2();
    }
+   
    while (power_of_2 > zero)
    {
       if (divisor <= remainder)
@@ -231,6 +232,7 @@ quo_rem udivide(const ubigint &dividend, const ubigint &divisor_)
       divisor.divide_by_2();
       power_of_2.divide_by_2();
    }
+   
    DEBUGF('/', "quotient = " << quotient);
    DEBUGF('/', "remainder = " << remainder);
    return {.quotient = quotient, .remainder = remainder};
@@ -300,13 +302,15 @@ bool ubigint::operator<(const ubigint &that) const
 void ubigint::print() const
 {
    DEBUGF('p', this << " -> " << *this);
+   int line_chars = 0;
    for (size_t i = 0; i < uvalue.size(); i++)
    {
       cout << static_cast<int>(uvalue[i]);
-      if (i != 0 && i % 68 == 0)
+      line_chars++;
+      if(line_chars == 69)
       {
-         cout << "\\"
-              << "\n";
+         cout << "\\\n";
+         line_chars = 0;
       }
    }
 }

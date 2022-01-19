@@ -1,4 +1,7 @@
 // $Id: scanner.cpp,v 1.1 2021-12-28 13:54:01-08 - - $
+//James Garrett jaagarre
+//Nick Kornienko nkornien
+
 
 #include <cassert>
 #include <iostream>

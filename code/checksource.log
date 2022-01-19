@@ -1,2 +1,7 @@
-checksource: README: No such file or directory
-checksource: TOTAL COMPLAINTS: 1
+checksource: non-ASCII character \x80 = \200
+README: 1 errors: line 6
+checksource: non-ASCII character \x99 = \231
+README: 1 errors: line 6
+checksource: non-ASCII character \xE2 = \342
+README: 1 errors: line 6
+checksource: TOTAL COMPLAINTS: 3

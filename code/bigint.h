@@ -1,4 +1,6 @@
 // $Id: bigint.h,v 1.3 2022-01-07 17:55:54-08 - - $
+//James Garrett jaagarre
+//Nick Kornienko nkornien
 
 #ifndef BIGINT_H
 #define BIGINT_H
